@@ -3,9 +3,10 @@
 
 enum layers {
   _BL = 0,
-  _F1,
-  _F2,
-  _F3,
+  _FN,
+  _KP,
+  _SY,
+  _KB,
 };
 
 enum cust_keycodes {
@@ -20,7 +21,12 @@ enum cust_keycodes {
 #undef _______
 #define _______ KC_NO
 
-#define ENT_F1 LT(_F1, KC_ENT)
-#define BSP_F2 LT(_F2, KC_BSPC)
+#define ENT_FN LT(_FN, KC_ENT)
+#define BSP_SY LT(_SY, KC_BSPC)
+#define SP_ALT LALT_T(KC_SPC)
+#define MO_SF1 LM(_FN, MOD_LSFT)
+
+#define ENT_LAYER ENT_SY
+#define BSP_LAYER BSP_FN
 
 #define SS_LCTL_LGUI(string) SS_LCTL(SS_LGUI(string))
