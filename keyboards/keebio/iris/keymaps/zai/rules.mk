@@ -1,2 +1,3 @@
-LTO_ENABLE = yes
-CONSOLE_ENABLE = no
+LTO_ENABLE       = yes
+CONSOLE_ENABLE   = no
+ENCODER_ENABLE   = no

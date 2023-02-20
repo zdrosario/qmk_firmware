@@ -13,6 +13,8 @@ enum cust_keycodes {
   CW_DOWN,
   CW_LEFT,
   CW_RGHT,
+  BL_TOG,
+  UG_TOG,
 };
 
 #undef _______
