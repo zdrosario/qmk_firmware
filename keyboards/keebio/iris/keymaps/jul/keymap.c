@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
    * |   Del  |    Z   |    X   |    C   |    V   |    B   |  LGui  |        |   Ent  |    N   |    M   |   ,<   |   .>   |   /?   | RShift |
    * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-   *                                | MO _FN |  LCtl  | LShift |                 |   Spc  | RShift | MO _FN |
+   *                                | MO _FN |  LCtl  | LShift |                 |   Spc  | RShift | MO _DC |
    *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
    */
 
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_DEL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,          KC_ENT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                   MO(_FN), KC_LCTL, KC_LSFT,                   KC_SPC,  KC_RSFT, MO(_FN)
+                                   MO(_FN), KC_LCTL, KC_LSFT,                   KC_SPC,  KC_RSFT, MO(_DC)
   ),
 
   [_FN] = LAYOUT(
@@ -54,6 +54,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, RGB_VAD, KC_VOLD,
                                    _______, _______, SNIP,                      _______, _______, _______
   ),
+  
+  [_DC] = LAYOUT(
+     DC_GRAV, _______, _______, _______, _______, _______,                            DC_CIRC, _______, _______, _______, _______, _______,
+     _______, _______, _______, DC_ACUT, _______, _______,                            _______, DC_DIAE, _______, _______, _______, _______,
+     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+     _______, _______, _______, DC_CEDL, _______, _______, _______,         _______, DC_TILD, _______, _______, _______, _______, _______,
+                                    _______, _______, _______,                   _______, _______, _______
+  ),
 };
 
 //
@@ -61,10 +69,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static enum dc_mode dc_mode = MD_REG;
+
+  if (dc_mode > MD_REG && keycode >= KC_A && keycode <= KC_Z) {
+    if (record->event.pressed) {
+      tap_diacritic(dc_mode - MD_ACUTE, keycode);
+      dc_mode = MD_REG;
+    }
+    return false;
+  }
+
   switch (keycode) {
   case SNIP:
     if (record->event.pressed) {
       send_string(SS_LGUI(SS_LSFT("s")));
+    }
+    return false;
+
+  case DC_ACUT:
+    if (record->event.pressed) {
+      dc_mode = MD_ACUTE;
+    }
+    return false;
+
+  case DC_CIRC:
+    if (record->event.pressed) {
+      dc_mode = MD_CIRCUMFLEX;
+    }
+    return false;
+
+  case DC_DIAE:
+    if (record->event.pressed) {
+      dc_mode = MD_DIAERESIS;
+    }
+    return false;
+
+  case DC_GRAV:
+    if (record->event.pressed) {
+      dc_mode = MD_GRAVE;
+    }
+    return false;
+
+  case DC_TILD:
+    if (record->event.pressed) {
+      dc_mode = MD_TILDE;
+    }
+    return false;
+
+  case DC_CEDL:
+    if (record->event.pressed) {
+      dc_mode = MD_CEDILLA;
     }
     return false;
 
