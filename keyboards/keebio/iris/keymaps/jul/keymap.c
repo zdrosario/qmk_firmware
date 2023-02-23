@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
+#include "diacritics.h"
 
 //
 // LAYOUT
