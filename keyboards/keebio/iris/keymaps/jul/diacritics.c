@@ -1,6 +1,6 @@
 #include "diacritics.h"
 
-const int16_t diacritic_map[][26][2] = {
+const uint16_t diacritic_map[][26][2] = {
   [D_ACUTE] = {
     { 225, 193 },
     NO_CODE,
@@ -87,9 +87,9 @@ const int16_t diacritic_map[][26][2] = {
     { 255, 376 },
     NO_CODE,
   },
-  
+
   [D_GRAVE] = {
-    { 244, 192 },
+    { 224, 192 },
     NO_CODE,
     NO_CODE,
     NO_CODE,
@@ -181,10 +181,16 @@ const uint16_t kc_map[10] = {
   KC_KP_5, KC_KP_6, KC_KP_7, KC_KP_8, KC_KP_9,
 };
 
-void tap_alt_code(int16_t code) {
-  int16_t a = kc_map[(code / 100) % 10];
-  int16_t b = kc_map[(code / 10) % 10];
-  int16_t c = kc_map[code % 10];
+void tap_alt_code(uint16_t code) {
+  uint8_t mod_state = get_mods();
+  bool numlock_on = host_keyboard_led_state().num_lock;
+
+  del_mods(MOD_MASK_SHIFT);
+  if (!numlock_on) tap_code(KC_NUM);
+
+  uint16_t a = kc_map[(code / 100) % 10];
+  uint16_t b = kc_map[(code / 10) % 10];
+  uint16_t c = kc_map[code % 10];
 
   register_code(KC_LALT);
   tap_code(KC_KP_0);
@@ -192,24 +198,17 @@ void tap_alt_code(int16_t code) {
   tap_code(b);
   tap_code(c);
   unregister_code(KC_LALT);
+
+  if (!numlock_on) tap_code(KC_NUM);
+  set_mods(mod_state);
 }
 
 void tap_diacritic(enum diacritic d, uint16_t kc) {
-  uint8_t mod_state = get_mods();
-  bool is_shifted = mod_state & MOD_MASK_SHIFT;
-  bool numlock_on = host_keyboard_led_state().num_lock;
+  bool is_shifted = get_mods() & MOD_MASK_SHIFT;
   bool capslock_on = host_keyboard_led_state().caps_lock;
 
-  int16_t code = diacritic_map[d][kc - KC_A][is_shifted || capslock_on];
-  if (code == -1) return;
+  uint16_t code = diacritic_map[d][kc - KC_A][is_shifted || capslock_on];
+  if (code == 0) return;
 
-  {
-    del_mods(MOD_MASK_SHIFT);
-    if (!numlock_on) tap_code(KC_NUM);
-
-    tap_alt_code(code);
-
-    if (!numlock_on) tap_code(KC_NUM);
-    set_mods(mod_state);
-  }
+  tap_alt_code(code);
 }

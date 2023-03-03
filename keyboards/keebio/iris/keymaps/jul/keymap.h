@@ -15,6 +15,8 @@ enum cust_keycodes {
   DC_GRAV,
   DC_TILD,
   DC_CEDL,
+  IV_EXLM,
+  IV_QUES,
 };
 
 enum dc_mode {

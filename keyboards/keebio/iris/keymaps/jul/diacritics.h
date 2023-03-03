@@ -1,7 +1,7 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-#define NO_CODE {-1,-1}
+#define NO_CODE { 0, 0 }
 
 enum diacritic {
   D_ACUTE = 0,
@@ -13,3 +13,5 @@ enum diacritic {
 };
 
 void tap_diacritic(enum diacritic d, uint16_t keycode);
+
+void tap_alt_code(uint16_t code);
