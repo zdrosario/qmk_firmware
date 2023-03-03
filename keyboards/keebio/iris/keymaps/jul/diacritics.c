@@ -204,10 +204,10 @@ void tap_alt_code(uint16_t code) {
 }
 
 void tap_diacritic(enum diacritic d, uint16_t kc) {
-  bool is_shifted = get_mods() & MOD_MASK_SHIFT;
-  bool capslock_on = host_keyboard_led_state().caps_lock;
+  bool shifted = get_mods() & MOD_MASK_SHIFT;
+  bool caps = host_keyboard_led_state().caps_lock;
 
-  uint16_t code = diacritic_map[d][kc - KC_A][is_shifted || capslock_on];
+  uint16_t code = diacritic_map[d][kc - KC_A][shifted || (caps && !shifted)];
   if (code == 0) return;
 
   tap_alt_code(code);
