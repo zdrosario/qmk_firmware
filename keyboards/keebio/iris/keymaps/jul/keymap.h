@@ -28,3 +28,5 @@ enum dc_mode {
   MD_TILDE,
   MD_CEDILLA,
 };
+
+#define RGB_MOI RGB_RMOD
