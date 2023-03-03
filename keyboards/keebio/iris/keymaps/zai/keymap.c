@@ -171,7 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case BL_TOG:
     if (record->event.pressed) {
       led_flags_t flags = rgb_matrix_get_flags();
-      rgb_matrix_set_flags(flags ^ LED_FLAG_KEYLIGHT);
+      rgb_matrix_set_flags(flags ^ LED_FLAG_KEYS);
     }
     return false;
 

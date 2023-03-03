@@ -1,6 +1,8 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
+#define LED_FLAG_KEYS (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR)
+
 enum layers {
   _BL = 0,
   _FN,
