@@ -209,3 +209,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
+
+//
+// LED Indicators
+//
+
+bool indicator_logic(uint8_t idx, bool enabled) {
+  if (enabled) {
+    rgb_matrix_set_color(idx, RGB_INDICATOR);
+
+  } else {
+    // ensure the indicator is disabled
+    bool led_disabled = g_led_config.flags[idx] & ~rgb_matrix_get_flags();
+    if (led_disabled) {
+      rgb_matrix_set_color(idx, RGB_OFF);
+    }
+  }
+
+  return false;
+}
+
+bool rgb_matrix_indicators_user(void) {
+  bool caps_enabled = host_keyboard_led_state().caps_lock;
+  bool oh_layer_enabled = layer_state_is(_OH);
+  bool kb_layer_enabled = layer_state_is(_KB);
+
+  indicator_logic(CAPS_INDICATOR_KEY, caps_enabled);
+  indicator_logic(OH_LAYER_INDICATOR_KEY, oh_layer_enabled);
+  indicator_logic(KB_LAYER_INDICATOR_KEY, kb_layer_enabled);
+
+  return false;
+}

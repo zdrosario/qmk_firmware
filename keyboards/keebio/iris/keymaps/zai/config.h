@@ -1,5 +1,8 @@
 #pragma once
 
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+
 #define RGB_MATRIX_SPD_STEP 5
 #define RGB_MATRIX_HUE_STEP 15
 #define RGB_MATRIX_SAT_STEP 26
