@@ -1,6 +1,10 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
+#define CAPS_INDICATOR_KEY 12
+#define RGB_JULIO_YELLOW 0xd2, 0x70, 0x06
+#define RGB_INDICATOR RGB_WHITE
+
 enum layers {
   _BL = 0,
   _FN,

@@ -148,7 +148,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+  case RGB_TOG:
+    if (record->event.pressed) {
+      led_flags_t flags = rgb_matrix_get_flags();
+      rgb_matrix_set_flags(~flags);
+    }
+    return false;
+
   default:
     return true;
   }
+}
+
+//
+// LED Indicators
+//
+
+bool indicator_logic(uint8_t idx, bool enabled) {
+  if (enabled) {
+    rgb_matrix_set_color(idx, RGB_INDICATOR);
+
+  } else {
+    // ensure the indicator is disabled
+    bool led_disabled = g_led_config.flags[idx] & ~rgb_matrix_get_flags();
+    if (led_disabled) {
+      rgb_matrix_set_color(idx, RGB_OFF);
+    }
+  }
+
+  return false;
+}
+
+bool rgb_matrix_indicators_user() {
+  bool caps_enabled = host_keyboard_led_state().caps_lock;
+  indicator_logic(CAPS_INDICATOR_KEY, caps_enabled);
+  return false;
 }
