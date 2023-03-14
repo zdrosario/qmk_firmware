@@ -33,4 +33,5 @@ enum dc_mode {
   MD_CEDILLA,
 };
 
+#define ENT_SFT LSFT_T(KC_ENT)
 #define RGB_MOI RGB_RMOD

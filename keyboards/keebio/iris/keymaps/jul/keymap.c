@@ -18,17 +18,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
    * |  Caps  |    A   |    S   |    D   |    F   |    G   |                          |    H   |    J   |    K   |    L   |   ;:   |   '"   |
    * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-   * |   Del  |    Z   |    X   |    C   |    V   |    B   |  LGui  |        |   Ent  |    N   |    M   |   ,<   |   .>   |   /?   | RShift |
+   * | MO _DC |    Z   |    X   |    C   |    V   |    B   |  LGui  |        |   Ent  |    N   |    M   |   ,<   |   .>   |   /?   | Delete |
    * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-   *                                | MO _FN |  LCtl  | LShift |                 |   Spc  |  RCtl  | MO _DC |
+   *                                | MO _FN |  LCtl  | Ent/Sft|                 |   Spc  | MO _DC | MO _FN |
    *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
    */
 
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_DEL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,          KC_ENT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                                   MO(_FN), KC_LCTL, KC_LSFT,                   KC_SPC,  KC_RCTL, MO(_DC)
+    MO(_DC), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,          KC_ENT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_DEL,
+                                   MO(_FN), KC_LCTL, ENT_SFT,                   KC_SPC,  MO(_DC), MO(_FN)
   ),
 
   [_FN] = LAYOUT(
@@ -39,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      * |  Snip  |   `~   |   Up   |        |        |        |                          |        |        |   [{   |   ]}   |   \|   |   =+   |
      * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     * |  Boot  |  Left  |  Down  |  Right |        |        |                          | RGBMod | RGBSp+ | RGBHu+ | RGBSa+ | RgbVa+ |  Vol+  |
+     * |        |  Left  |  Down  |  Right |        |        |                          | RGBMod | RGBSp+ | RGBHu+ | RGBSa+ | RgbVa+ |  Vol+  |
      * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     * |        |        |        |        |        |        |        |        |        | RGBRMod| RGBSp- | RGBHu- | RGBSa- | RgbVa- |  Vol-  |
+     * |        |        |        |        |        |        |        |        |  Boot  | RGBRMod| RGBSp- | RGBHu- | RGBSa- | RgbVa- |  Vol-  |
      * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
      *                                |        |  LCtl  | LShift |                 | RShift |        |        |
      *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                              KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
     SNIP,    KC_GRV,  KC_UP,   _______, _______, _______,                            _______, _______, KC_LBRC, KC_RBRC, KC_BSLS, KC_EQL,
-    QK_BOOT, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,                            RGB_MOI, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU,
-    _______, _______, _______, _______, _______, _______, _______,          _______, RGB_MOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD,
+    _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,                            RGB_MOI, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU,
+    _______, _______, _______, _______, _______, _______, _______,          QK_BOOT, RGB_MOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD,
                                    _______, KC_LCTL, KC_LSFT,                   KC_RSFT, _______, _______
   ),
 
