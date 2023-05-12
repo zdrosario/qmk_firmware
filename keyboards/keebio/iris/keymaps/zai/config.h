@@ -1,5 +1,9 @@
 #pragma once
 
+#define USB_POLLING_INTERVAL_MS 1
+
+#define TAPPING_TOGGLE 1
+
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
