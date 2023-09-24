@@ -6,6 +6,7 @@
 #define CAPS_INDICATOR_KEY 61
 #define OH_LAYER_INDICATOR_KEY 27
 #define KB_LAYER_INDICATOR_KEY 52
+#define SP_LAYER_INDICATOR_KEY 26
 
 #define RGB_INDICATOR 0x7f, 0x3f, 0x00
 
@@ -17,6 +18,7 @@ enum layers {
   _F2,
   _KP,
   _SY,
+  _SP,
   _KB,
 };
 
@@ -31,6 +33,8 @@ enum cust_keycodes {
 
 #undef _______
 #define _______ KC_NO
+
+#define X_____X KC_TRNS
 
 #define BSP_F1 LT(_F1, KC_BSPC)
 #define ENT_SY LT(_SY, KC_ENT)

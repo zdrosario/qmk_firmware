@@ -162,6 +162,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
+  [_SP] = LAYOUT(
+
+  /*
+   * ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+   * |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+   * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+   * |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+   * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+   * |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+   * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+   * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+   * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+   *                                |        |        |  Space |                 |        |        |        |
+   *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+   */
+
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,                            X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,                            X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,                            X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,          X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+                                   X_____X, X_____X, KC_SPC,                    X_____X, X_____X, X_____X
+  ),
+
   [_KB] = LAYOUT(
 
   /*
@@ -174,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
    * | Transp |        | UG Tog | BL Tog | RGBMod | RGB Pl |        |        |        | TG _KB |        |        |        |        | Transp |
    * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-   *                                |        |        |        |                 | Transp | Transp |        |
+   *                                |        |        | TG _SP |                 | Transp | Transp |        |
    *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
    */
 
@@ -182,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT, _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                            _______, _______, _______, _______, _______, _______,
     _______, _______, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                            _______, _______, _______, _______, _______, _______,
     KC_TRNS, _______, UG_TOG,  BL_TOG,  RGB_MOD, RGB_M_P, _______,          _______, TG(_KB), _______, _______, _______, _______, KC_TRNS,
-                                   _______, _______, _______,                   KC_TRNS, KC_TRNS, _______
+                                   _______, _______, TG(_SP),                   KC_TRNS, KC_TRNS, _______
   ),
 };
 
@@ -191,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    switch (keycode) {
   case CW_UP:
     if (record->event.pressed) {
       send_string(SS_LCTL_LGUI(SS_TAP(X_UP)));
@@ -257,10 +280,12 @@ bool rgb_matrix_indicators_user(void) {
   bool caps_enabled = host_keyboard_led_state().caps_lock;
   bool oh_layer_enabled = layer_state_is(_OH);
   bool kb_layer_enabled = layer_state_is(_KB);
+  bool sp_layer_enabled = layer_state_is(_SP);
 
   indicator_logic(CAPS_INDICATOR_KEY, caps_enabled);
   indicator_logic(OH_LAYER_INDICATOR_KEY, oh_layer_enabled);
   indicator_logic(KB_LAYER_INDICATOR_KEY, kb_layer_enabled);
+  indicator_logic(SP_LAYER_INDICATOR_KEY, sp_layer_enabled);
 
   return false;
 }
