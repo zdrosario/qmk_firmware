@@ -185,6 +185,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    X_____X, X_____X, KC_SPC,                    X_____X, X_____X, X_____X
   ),
 
+  [_MC] = LAYOUT(
+
+  /*
+   * ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+   * |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+   * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+   * |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+   * ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+   * |  LCmd  |        |        |        |        |        |                          |        |        |        |        |        |        |
+   * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+   * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+   * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+   *                                |  LCtl  |  LOpt  |        |                 |        |        |        |
+   *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+   */
+
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,                            X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,                            X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+    KC_LCMD, X_____X, X_____X, X_____X, X_____X, X_____X,                            X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+    X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,          X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,
+                                   KC_LCTL, KC_LOPT, X_____X,                   X_____X, X_____X, X_____X
+  ),
+
   [_KB] = LAYOUT(
 
   /*
@@ -197,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
    * | Transp |        | UG Tog | BL Tog | RGBMod | RGB Pl |        |        |        | TG _KB |        |        |        |        | Transp |
    * └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-   *                                |        |        | TG _SP |                 | Transp | Transp |        |
+   *                                | TG _MC |        | TG _SP |                 | Transp | Transp |        |
    *                                └────────┴────────┴────────┘                 └────────┴────────┴────────┘
    */
 
@@ -205,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT, _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                            _______, _______, _______, _______, _______, _______,
     _______, _______, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                            _______, _______, _______, _______, _______, _______,
     KC_TRNS, _______, UG_TOG,  BL_TOG,  RGB_MOD, RGB_M_P, _______,          _______, TG(_KB), _______, _______, _______, _______, KC_TRNS,
-                                   _______, _______, TG(_SP),                   KC_TRNS, KC_TRNS, _______
+                                   TG(_MC), _______, TG(_SP),                   KC_TRNS, KC_TRNS, _______
   ),
 };
 
@@ -281,11 +304,13 @@ bool rgb_matrix_indicators_user(void) {
   bool oh_layer_enabled = layer_state_is(_OH);
   bool kb_layer_enabled = layer_state_is(_KB);
   bool sp_layer_enabled = layer_state_is(_SP);
+  bool mc_layer_enabled = layer_state_is(_MC);
 
   indicator_logic(CAPS_INDICATOR_KEY, caps_enabled);
   indicator_logic(OH_LAYER_INDICATOR_KEY, oh_layer_enabled);
   indicator_logic(KB_LAYER_INDICATOR_KEY, kb_layer_enabled);
   indicator_logic(SP_LAYER_INDICATOR_KEY, sp_layer_enabled);
+  indicator_logic(MC_LAYER_INDICATOR_KEY, mc_layer_enabled);
 
   return false;
 }
