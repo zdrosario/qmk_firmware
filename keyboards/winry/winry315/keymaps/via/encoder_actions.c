@@ -34,6 +34,23 @@ static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
 static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
 
 static void exec_encoder_action(uint8_t index, bool clockwise, bool pressed) {
+    uint8_t layer = get_highest_layer(layer_state | default_layer_state);
+    if (layer == 1) {
+        switch (index) {
+        case 0:
+            tap_code(clockwise ? KC_F15 : KC_F14);
+            return;
+
+        case 1:
+            tap_code(clockwise ? KC_F20 : KC_F16);
+            return;
+
+        case 2:
+            tap_code(clockwise ? KC_F22 : KC_F21);
+            return;
+        }
+    }
+
     // clang-format off
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
