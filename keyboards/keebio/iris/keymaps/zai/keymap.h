@@ -1,12 +1,15 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
+#define USB_POLLING_INTERVAL_MS 1
+
 #define LED_FLAG_KEYS (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR)
 
 #define CAPS_INDICATOR_KEY 61
 #define OH_LAYER_INDICATOR_KEY 27
 #define KB_LAYER_INDICATOR_KEY 52
 #define SP_LAYER_INDICATOR_KEY 26
+#define MC_LAYER_INDICATOR_KEY 24
 
 #define RGB_INDICATOR 0x7f, 0x3f, 0x00
 
@@ -19,6 +22,7 @@ enum layers {
   _KP,
   _SY,
   _SP,
+  _MC,
   _KB,
 };
 
